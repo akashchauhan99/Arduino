@@ -1,0 +1,81 @@
+#Stopwatch
+
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+int m,s,ms;
+int start,stopp,resumee,reset;
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+  pinMode(10, INPUT);
+
+}
+
+void loop() {
+          digitalWrite(7, HIGH);
+       
+        start = digitalRead(7);
+     
+
+       
+        //  digitalWrite(8, HIGH);
+//        digitalWrite(9, HIGH);
+//        digitalWrite(10, HIGH);
+if(start == LOW){
+
+abc:  lcd.clear();
+  //for Minute
+  for(m=1;m<60;m++){
+    //for Second
+    for(s=1;s<1000;s++){
+      //for Milisecond
+      for(ms=1;ms<1000;ms++){
+       
+          lcd.setCursor(0, 0);
+          lcd.print(m);
+          lcd.setCursor(2, 0);
+          lcd.print(':');
+          lcd.setCursor(3, 0);
+          lcd.print(s);
+          lcd.setCursor(6, 0);
+          lcd.print(':');
+          lcd.setCursor(7, 0);
+          lcd.print(ms);
+           digitalWrite(8, HIGH);
+         
+          digitalWrite(10, HIGH);
+          stopp = digitalRead(8);
+     
+       reset = digitalRead(10);
+          if(stopp==LOW)
+          {while(1)
+          {
+            digitalWrite(9, HIGH);
+            resumee = digitalRead(9);
+          if(resumee==LOW){
+            break;
+          }
+          }
+          }
+          if(reset==LOW){
+            goto abc;
+          }
+         
+      }
+      lcd.clear();
+    }
+    lcd.clear();
+  }
+  lcd.clear();
+}
+}
+
+
